@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String
+  role     Role   @default(USER)
+}
+
+model Book {
+  id                Int    @id @default(autoincrement())
+  title             String
+  author            String
+  genre             String
+  publisher         String
+  publicationYear   Int
+  quantityAvailable Int
+  price             Float
+}
+
+model Comic {
+  id                Int    @id @default(autoincrement())
+  title             String
+  author            String
+  publisher         String
+  publicationYear   Int
+  quantityAvailable Int
+  price             Float
+}
+
+model Manga {
+  id                Int    @id @default(autoincrement())
+  title             String
+  author            String
+  genre             String
+  publisher         String
+  volume            Int
+  quantityAvailable Int
+  price             Float
+}
+
+enum Role {
+  USER
+  ADMIN
+}
