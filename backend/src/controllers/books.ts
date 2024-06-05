@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
 import { handleHttp } from "../utils/error.handle";
-import { getBooksFromPrisma, postBookToPrisma } from "../services/books";
+import {
+  deleteBookToPrisma,
+  getBookToPrisma,
+  getBooksToPrisma,
+  postBookToPrisma,
+  updateBookToPrisma,
+} from "../services/books";
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
-    const response = await getBooksFromPrisma();
+    const response = await getBooksToPrisma();
     res.send(response);
   } catch (error) {
     handleHttp(res, "Unable to get books");
@@ -13,7 +19,9 @@ export const getBooks = async (req: Request, res: Response) => {
 
 export const getBook = async ({ params }: Request, res: Response) => {
   try {
-    res.send(params);
+    const { id } = params;
+    const response = await getBookToPrisma(id);
+    res.send(response);
   } catch (error) {
     handleHttp(res, "Unable to get book");
   }
@@ -21,8 +29,8 @@ export const getBook = async ({ params }: Request, res: Response) => {
 
 export const postBook = async ({ body }: Request, res: Response) => {
   try {
-    const responseBook = await postBookToPrisma(body);
-    res.send(responseBook);
+    const response = await postBookToPrisma(body);
+    res.send(response);
   } catch (error) {
     handleHttp(res, "Unable to post books");
   }
@@ -30,7 +38,10 @@ export const postBook = async ({ body }: Request, res: Response) => {
 
 export const updateBook = async ({ body, params }: Request, res: Response) => {
   try {
-    res.send({ ...body, ...params });
+    const { id } = params;
+
+    const response = await updateBookToPrisma(id, body);
+    res.send(response);
   } catch (error) {
     handleHttp(res, "Unable to put books");
   }
@@ -38,7 +49,10 @@ export const updateBook = async ({ body, params }: Request, res: Response) => {
 
 export const deleteBook = async ({ params }: Request, res: Response) => {
   try {
-    res.send(params);
+    const { id } = params;
+
+    const response = await deleteBookToPrisma(id);
+    res.send(response);
   } catch (error) {
     handleHttp(res, "Unable to delete books");
   }
