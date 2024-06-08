@@ -5,7 +5,7 @@ import {
   getBooks,
   postBook,
   updateBook,
-} from "../controllers/books";
+} from "../controllers/books.controller";
 
 const router = Router();
 

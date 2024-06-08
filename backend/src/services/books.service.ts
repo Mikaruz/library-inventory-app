@@ -1,5 +1,5 @@
 import { Book } from "@prisma/client";
-import { prisma } from "../database/db";
+import { prisma } from "../config/prisma";
 
 export const getBooksToPrisma = async () => {
   return await prisma.book.findMany();

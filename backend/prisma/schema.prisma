@@ -8,47 +8,51 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   email     String   @unique
   name      String
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now()) @db.Timestamp(6)
+  editedAt  DateTime @default(now()) @db.Timestamp(6)
 }
 
 model Book {
-  id                String   @id @default(cuid())
-  title             String
-  author            String
-  genre             String
-  publisher         String
-  publicationYear   Int
-  quantityAvailable Int
-  price             Float
-  createdAt         DateTime @default(now()) @db.Timestamp(6)
+  id              String   @id @default(cuid())
+  title           String
+  author          String
+  genre           String
+  publisher       String
+  publicationYear Int
+  quantity        Int
+  price           Float
+  createdAt       DateTime @default(now()) @db.Timestamp(6)
+  editedAt        DateTime @default(now()) @db.Timestamp(6)
 }
 
 model Comic {
-  id                String   @id @default(cuid())
-  title             String
-  author            String
-  publisher         String
-  publicationYear   Int
-  quantityAvailable Int
-  price             Float
-  createdAt         DateTime @default(now()) @db.Timestamp(6)
+  id              String   @id @default(cuid())
+  title           String
+  author          String
+  publisher       String
+  publicationYear Int
+  quantity        Int
+  price           Float
+  createdAt       DateTime @default(now()) @db.Timestamp(6)
+  editedAt        DateTime @default(now()) @db.Timestamp(6)
 }
 
 model Manga {
-  id                String   @id @default(cuid())
-  title             String
-  author            String
-  genre             String
-  publisher         String
-  volume            Int
-  quantityAvailable Int
-  price             Float
-  createdAt         DateTime @default(now()) @db.Timestamp(6)
+  id        String   @id @default(cuid())
+  title     String
+  author    String
+  genre     String
+  publisher String
+  volume    Int
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  editedAt  DateTime @default(now()) @db.Timestamp(6)
 }
 
 enum Role {

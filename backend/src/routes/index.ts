@@ -3,16 +3,17 @@ import { readdirSync } from "fs";
 
 const PATH_ROUTER = `${__dirname}/`;
 const router = Router();
+console.log(PATH_ROUTER);
 
 const cleanFileName = (filename: string) => {
-  return filename.split(".").shift();
+  return filename.split(".")[0];
 };
 
 readdirSync(PATH_ROUTER).filter((filename) => {
   const cleanName = cleanFileName(filename);
 
   if (cleanName !== "index") {
-    import(`./${cleanName}`).then((module) => {
+    import(`./${cleanName}.routes`).then((module) => {
       console.log(`Adding route /${cleanName}`);
       router.use(`/${cleanName}`, module.router);
     });

@@ -6,7 +6,7 @@ import {
   getBooksToPrisma,
   postBookToPrisma,
   updateBookToPrisma,
-} from "../services/books";
+} from "../services/books.service";
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
