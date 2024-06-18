@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { notFoundResponse } from "../utils/error.handle";
+import { badRequestResponse, notFoundResponse } from "../utils/error.handle";
 import {
   deleteBookToPrisma,
   getBookToPrisma,
@@ -23,7 +23,7 @@ export const getBook = async ({ params }: Request, res: Response) => {
     const response = await getBookToPrisma(id);
     res.send(response);
   } catch (error) {
-    notFoundResponse(res, "Unable to get book");
+    if (error instanceof Error) notFoundResponse(res, error.message);
   }
 };
 
@@ -32,7 +32,7 @@ export const postBook = async ({ body }: Request, res: Response) => {
     const response = await postBookToPrisma(body);
     res.send(response);
   } catch (error) {
-    notFoundResponse(res, "Unable to post books");
+    if (error instanceof Error) badRequestResponse(res, error.message);
   }
 };
 
@@ -43,7 +43,7 @@ export const updateBook = async ({ body, params }: Request, res: Response) => {
     const response = await updateBookToPrisma(id, body);
     res.send(response);
   } catch (error) {
-    notFoundResponse(res, "Unable to put books");
+    if (error instanceof Error) notFoundResponse(res, error.message);
   }
 };
 
@@ -54,6 +54,6 @@ export const deleteBook = async ({ params }: Request, res: Response) => {
     const response = await deleteBookToPrisma(id);
     res.send(response);
   } catch (error) {
-    notFoundResponse(res, "Unable to delete books");
+    if (error instanceof Error) notFoundResponse(res, error.message);
   }
 };

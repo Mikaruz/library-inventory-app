@@ -10,7 +10,7 @@ export const registerUserToPrisma = async (user: User) => {
     },
   });
 
-  if (userExists) throw new Error("User already exists");
+  if (userExists) throw new Error("Email used by another user");
 
   const hashedPassword = await encrypt(user.password);
 
@@ -30,7 +30,7 @@ export const loginUserToPrisma = async (user: User) => {
     },
   });
 
-  if (!userExists) throw new Error(`Email "${user.email}" does not exist`);
+  if (!userExists) throw new Error(`Email '${user.email}' does not exist`);
 
   const verifiedPassword = await verified(user.password, userExists.password);
 

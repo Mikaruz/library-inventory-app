@@ -1,10 +1,18 @@
 import { Response } from "express";
 
-export const notFoundResponse = (res: Response, data?: any) => {
-  res.status(200).json({
-    statusCode: 404,
-    message: "Not found",
+export const badRequestResponse = (res: Response, data?: any) => {
+  res.status(400).json({
+    statusCode: 400,
     error: data,
+    message: "Bad request",
+  });
+};
+
+export const notFoundResponse = (res: Response, data?: any) => {
+  res.status(404).json({
+    statusCode: 404,
+    error: data,
+    message: "Not found",
   });
 };
 
