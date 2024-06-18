@@ -6,7 +6,7 @@ import {
   getBooksToPrisma,
   postBookToPrisma,
   updateBookToPrisma,
-} from "../services/books.service";
+} from "../services/book.service";
 
 export const getBooks = async (req: Request, res: Response) => {
   try {
@@ -50,7 +50,6 @@ export const updateBook = async ({ body, params }: Request, res: Response) => {
 export const deleteBook = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
-
     const response = await deleteBookToPrisma(id);
     res.send(response);
   } catch (error) {
