@@ -3,7 +3,7 @@ import { prisma } from "../config/prisma";
 import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
 
-export const registerUser = async (user: User) => {
+export const registerUserToPrisma = async (user: User) => {
   const userExists = await prisma.user.findUnique({
     where: {
       email: user.email,
@@ -23,14 +23,14 @@ export const registerUser = async (user: User) => {
   });
 };
 
-export const loginUser = async (user: User) => {
+export const loginUserToPrisma = async (user: User) => {
   const userExists = await prisma.user.findUnique({
     where: {
       email: user.email,
     },
   });
 
-  if (!userExists) throw new Error("User does not exist");
+  if (!userExists) throw new Error(`Email "${user.email}" does not exist`);
 
   const verifiedPassword = await verified(user.password, userExists.password);
 

@@ -9,4 +9,8 @@ export const generateToken = (id: string) => {
   return jwt;
 };
 
-export const verifyToken = (token: string) => {};
+export const verifyToken = (token: string) => {
+  const jwt = verify(token, JWT_SECRET);
+
+  return jwt;
+};

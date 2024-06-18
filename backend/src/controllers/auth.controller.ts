@@ -1,21 +1,28 @@
 import { Request, Response } from "express";
-import { loginUser, registerUser } from "../services/auth.service";
-import { handleHttp } from "../utils/error.handle";
+import {
+  loginUserToPrisma,
+  registerUserToPrisma,
+} from "../services/auth.service";
+import { unauthorizedException } from "../utils/error.handle";
 
-export const registerController = async ({ body }: Request, res: Response) => {
+export const registerUser = async ({ body }: Request, res: Response) => {
   try {
-    const response = await registerUser(body);
+    const response = await registerUserToPrisma(body);
     res.send(response);
   } catch (error) {
-    handleHttp(res, "Unable to register user");
+    if (error instanceof Error) {
+      unauthorizedException(res, error.message);
+    }
   }
 };
 
-export const loginController = async ({ body }: Request, res: Response) => {
+export const loginUser = async ({ body }: Request, res: Response) => {
   try {
-    const response = await loginUser(body);
+    const response = await loginUserToPrisma(body);
     res.send(response);
   } catch (error) {
-    handleHttp(res, "Unable to login user");
+    if (error instanceof Error) {
+      unauthorizedException(res, error.message);
+    }
   }
 };
