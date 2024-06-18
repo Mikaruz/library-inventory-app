@@ -32,6 +32,14 @@ export const forbiddenException = (res: Response, data?: any) => {
   });
 };
 
+export const conflictException = (res: Response, data?: any) => {
+  res.status(409).json({
+    statusCode: 409,
+    message: data,
+    error: "Conflict",
+  });
+};
+
 export const errorException = (res: Response, data?: any) => {
   res.status(500).json({
     statusCode: 500,
