@@ -112,7 +112,10 @@ export const updateCategoryToPrisma = async (
       where: {
         id,
       },
-      data: category,
+      data: {
+        ...category,
+        editedAt: new Date(),
+      },
     });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -125,15 +128,11 @@ export const updateCategoryToPrisma = async (
 
 export const deleteCategoryToPrisma = async (id: string) => {
   try {
-    const deletedCategory = await prisma.category.delete({
+    return await prisma.category.delete({
       where: {
         id,
       },
     });
-
-    return {
-      message: `Category '${deletedCategory.name}' deleted successfully`,
-    };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {

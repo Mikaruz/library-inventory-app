@@ -43,8 +43,6 @@ export const postCategory = async (req: Request, res: Response) => {
   }
 };
 
-// *TODO: Implement updateCategory controller
-
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const response = await updateCategoryToPrisma(req.params.id, req.body);

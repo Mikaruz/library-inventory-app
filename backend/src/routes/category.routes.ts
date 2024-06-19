@@ -4,6 +4,7 @@ import {
   getCategories,
   getCategory,
   postCategory,
+  updateCategory,
 } from "../controllers/category.controller";
 import { checkAuth } from "../middlewares/auth.middleware";
 import { validateSchema } from "../middlewares/validator.middleware";
@@ -14,6 +15,7 @@ const router = Router();
 router.get("/", checkAuth, getCategories);
 router.get("/:term", checkAuth, getCategory);
 router.post("/", checkAuth, validateSchema(categorySchema), postCategory);
+router.patch("/:id", checkAuth, validateSchema(categorySchema), updateCategory);
 router.delete("/:id", checkAuth, deleteCategory);
 
 export { router };
