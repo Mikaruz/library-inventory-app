@@ -25,18 +25,6 @@ export const getCategoryToPrisma = async (term: string) => {
             title: true,
           },
         },
-        comics: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-        mangas: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
       },
     });
   }
@@ -53,32 +41,13 @@ export const getCategoryToPrisma = async (term: string) => {
             title: true,
           },
         },
-        comics: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-        mangas: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
       },
     });
   }
 
   if (!categoryFound) throw new Error(`Category with term '${term}' not found`);
 
-  const filteredCategory = {
-    ...categoryFound,
-    comics: categoryFound?.comics?.length ? categoryFound.comics : undefined,
-    books: categoryFound?.books?.length ? categoryFound.books : undefined,
-    mangas: categoryFound?.mangas?.length ? categoryFound.mangas : undefined,
-  };
-
-  return filteredCategory;
+  return categoryFound;
 };
 
 export const postCategoryToPrisma = async (category: Category) => {
@@ -86,6 +55,7 @@ export const postCategoryToPrisma = async (category: Category) => {
     const categoryCreated = await prisma.category.create({
       data: category,
     });
+    console.log(categoryCreated);
 
     return {
       id: categoryCreated.id,
