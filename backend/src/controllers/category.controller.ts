@@ -17,9 +17,10 @@ export const getCategories = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategory = async (req: Request, res: Response) => {
+export const getCategory = async ({ params }: Request, res: Response) => {
   try {
-    const response = await getCategoryToPrisma(req.params.term);
+    const { term } = params;
+    const response = await getCategoryToPrisma(term);
     res.status(200).send(response);
   } catch (error) {
     if (error instanceof Error) {
@@ -30,9 +31,9 @@ export const getCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const postCategory = async (req: Request, res: Response) => {
+export const postCategory = async ({ body }: Request, res: Response) => {
   try {
-    const response = await postCategoryToPrisma(req.body);
+    const response = await postCategoryToPrisma(body);
     res.status(201).send(response);
   } catch (error) {
     if (error instanceof Error) {
@@ -43,9 +44,13 @@ export const postCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const updateCategory = async (req: Request, res: Response) => {
+export const updateCategory = async (
+  { body, params }: Request,
+  res: Response
+) => {
   try {
-    const response = await updateCategoryToPrisma(req.params.id, req.body);
+    const { id } = params;
+    const response = await updateCategoryToPrisma(id, body);
     res.status(200).send(response);
   } catch (error) {
     if (error instanceof Error) {
@@ -56,9 +61,10 @@ export const updateCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteCategory = async (req: Request, res: Response) => {
+export const deleteCategory = async ({ params }: Request, res: Response) => {
   try {
-    const response = await deleteCategoryToPrisma(req.params.id);
+    const { id } = params;
+    const response = await deleteCategoryToPrisma(id);
     res.status(204).send(response);
   } catch (error) {
     if (error instanceof Error) {
