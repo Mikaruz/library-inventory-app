@@ -7,6 +7,9 @@ export const getCategoriesToPrisma = async () => {
       id: true,
       name: true,
     },
+    orderBy: {
+      name: "asc",
+    },
   });
 };
 
@@ -55,7 +58,6 @@ export const postCategoryToPrisma = async (category: Category) => {
     const categoryCreated = await prisma.category.create({
       data: category,
     });
-    console.log(categoryCreated);
 
     return {
       id: categoryCreated.id,
