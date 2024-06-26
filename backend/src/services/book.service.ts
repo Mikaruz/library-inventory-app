@@ -1,6 +1,7 @@
 import { Book, Prisma } from "@prisma/client";
 import { prisma } from "../config/prisma";
 
+//TODO: Añadir paginación y búsqueda por título
 export const getBooksToPrisma = async () => {
   return await prisma.book.findMany();
 };
@@ -8,7 +9,22 @@ export const getBooksToPrisma = async () => {
 export const getBookToPrisma = async (id: string) => {
   const bookFound = await prisma.book.findUnique({
     where: {
-      id,
+      id: id,
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          lastname: true,
+        },
+      },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 
@@ -18,9 +34,28 @@ export const getBookToPrisma = async (id: string) => {
 };
 
 export const postBookToPrisma = async (book: Book) => {
-  return await prisma.book.create({
-    data: book,
-  });
+  try {
+    const bookCreated = await prisma.book.create({
+      data: book,
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            lastname: true,
+          },
+        },
+        categories: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    const { editedAt, authorId, ...bookResponse } = bookCreated;
+    return bookResponse;
+  } catch (error) {}
 };
 
 export const updateBookToPrisma = async (id: string, book: Book) => {

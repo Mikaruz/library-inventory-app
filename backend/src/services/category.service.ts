@@ -59,11 +59,9 @@ export const postCategoryToPrisma = async (category: Category) => {
       data: category,
     });
 
-    return {
-      id: categoryCreated.id,
-      name: categoryCreated.name,
-      createdAt: categoryCreated.createdAt,
-    };
+    const { editedAt, ...categoryResponse } = categoryCreated;
+
+    return categoryResponse;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {

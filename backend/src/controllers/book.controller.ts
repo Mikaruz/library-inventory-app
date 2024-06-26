@@ -11,7 +11,7 @@ import {
 export const getBooks = async (req: Request, res: Response) => {
   try {
     const response = await getBooksToPrisma();
-    res.send(response);
+    res.status(200).send(response);
   } catch (error) {
     notFoundResponse(res, "Unable to get books");
   }
@@ -21,7 +21,7 @@ export const getBook = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const response = await getBookToPrisma(id);
-    res.send(response);
+    res.status(200).send(response);
   } catch (error) {
     if (error instanceof Error) notFoundResponse(res, error.message);
   }
@@ -30,7 +30,7 @@ export const getBook = async ({ params }: Request, res: Response) => {
 export const postBook = async ({ body }: Request, res: Response) => {
   try {
     const response = await postBookToPrisma(body);
-    res.send(response);
+    res.status(201).send(response);
   } catch (error) {
     if (error instanceof Error) badRequestResponse(res, error.message);
   }
@@ -41,7 +41,7 @@ export const updateBook = async ({ body, params }: Request, res: Response) => {
     const { id } = params;
 
     const response = await updateBookToPrisma(id, body);
-    res.send(response);
+    res.status(200).send(response);
   } catch (error) {
     if (error instanceof Error) notFoundResponse(res, error.message);
   }
@@ -51,7 +51,7 @@ export const deleteBook = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const response = await deleteBookToPrisma(id);
-    res.send(response);
+    res.status(204).send(response);
   } catch (error) {
     if (error instanceof Error) notFoundResponse(res, error.message);
   }

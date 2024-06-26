@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   email     String   @unique
   name      String
   password  String
@@ -18,7 +18,7 @@ model User {
 }
 
 model Author {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   name      String
   lastname  String
   biography String
@@ -28,13 +28,11 @@ model Author {
 }
 
 model Book {
-  id              String     @id @default(cuid())
+  id              String     @id @default(uuid())
   title           String
   review          String
   publisher       String
   publicationYear Int
-  quantity        Int
-  price           Float
   author          Author     @relation(fields: [authorId], references: [id])
   authorId        String
   categories      Category[]
@@ -43,7 +41,7 @@ model Book {
 }
 
 model Category {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @db.Timestamp(6)
   editedAt  DateTime @default(now()) @db.Timestamp(6)

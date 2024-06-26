@@ -1,6 +1,5 @@
 import { Author, Prisma } from "@prisma/client";
 import { prisma } from "../config/prisma";
-import { create } from "domain";
 
 export const getAuthorsToPrisma = async () => {
   return await prisma.author.findMany({
@@ -33,13 +32,9 @@ export const postAuthorToPrisma = async (author: Author) => {
       data: author,
     });
 
-    return {
-      id: authorCreated.id,
-      name: authorCreated.name,
-      lastname: authorCreated.lastname,
-      biography: authorCreated.biography,
-      createdAt: authorCreated.createdAt,
-    };
+    const { editedAt, ...authorResponse } = authorCreated;
+
+    return authorResponse;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
