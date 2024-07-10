@@ -14,16 +14,6 @@ export const bookCreatedSchema = z
       .max(50, {
         message: "Title must be at most 15 characters",
       }),
-    review: z
-      .string({
-        required_error: "Review is required",
-      })
-      .min(10, {
-        message: "Review must be at least 10 characters",
-      })
-      .max(500, {
-        message: "Review must be at most 500 characters",
-      }),
     publisher: z
       .string({
         required_error: "Publisher is required",
@@ -47,7 +37,15 @@ export const bookCreatedSchema = z
       .string({ required_error: "Author ID is required" })
       .min(1, { message: "Author ID cannot be empty" })
       .uuid({ message: "Author ID must be a valid UUID" }),
-    categories: z.object({}),
+    categoryId: z
+      .string({ required_error: "Category ID is required" })
+      .min(1, { message: "Category ID cannot be empty" })
+      .uuid({ message: "Category ID must be a valid UUID" }),
+    copiesAvailable: z
+      .number({
+        required_error: "Copies available is required",
+      })
+      .min(1, { message: "Copies available must be at least 1" }),
   })
   .strict({
     message: "No additional properties allowed",

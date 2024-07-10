@@ -3,11 +3,6 @@ import { prisma } from "../config/prisma";
 
 export const getAuthorsToPrisma = async () => {
   return await prisma.author.findMany({
-    select: {
-      id: true,
-      name: true,
-      lastname: true,
-    },
     orderBy: {
       name: "asc",
     },
@@ -32,9 +27,7 @@ export const postAuthorToPrisma = async (author: Author) => {
       data: author,
     });
 
-    const { editedAt, ...authorResponse } = authorCreated;
-
-    return authorResponse;
+    return authorCreated;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
@@ -52,7 +45,6 @@ export const updateAuthorToPrisma = async (id: string, author: Author) => {
       },
       data: {
         ...author,
-        editedAt: new Date(),
       },
     });
   } catch (error) {

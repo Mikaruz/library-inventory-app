@@ -16,8 +16,7 @@ export const registerUserToPrisma = async (user: User) => {
 
   return await prisma.user.create({
     data: {
-      name: user.name,
-      email: user.email,
+      ...user,
       password: hashedPassword,
     },
   });
@@ -38,11 +37,10 @@ export const loginUserToPrisma = async (user: User) => {
 
   const token = generateToken(userExists.id);
 
+  const { id, password, ...userResponse } = userExists;
+
   return {
     token,
-    user: {
-      name: userExists.name,
-      email: userExists.email,
-    },
+    userResponse,
   };
 };

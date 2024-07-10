@@ -59,9 +59,7 @@ export const postCategoryToPrisma = async (category: Category) => {
       data: category,
     });
 
-    const { editedAt, ...categoryResponse } = categoryCreated;
-
-    return categoryResponse;
+    return categoryCreated;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
@@ -84,7 +82,6 @@ export const updateCategoryToPrisma = async (
       },
       data: {
         ...category,
-        editedAt: new Date(),
       },
     });
   } catch (error) {
