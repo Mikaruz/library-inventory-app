@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const currentYear = new Date().getFullYear();
 
-export const bookCreatedSchema = z
+const bookCreatedSchema = z
   .object({
     title: z
       .string({
@@ -12,7 +12,7 @@ export const bookCreatedSchema = z
         message: "Title must be at least 2 characters",
       })
       .max(50, {
-        message: "Title must be at most 15 characters",
+        message: "Title must be at most 50 characters",
       }),
     publisher: z
       .string({
@@ -50,3 +50,7 @@ export const bookCreatedSchema = z
   .strict({
     message: "No additional properties allowed",
   });
+
+const bookUpdatedSchema = bookCreatedSchema.partial();
+
+export { bookCreatedSchema, bookUpdatedSchema };

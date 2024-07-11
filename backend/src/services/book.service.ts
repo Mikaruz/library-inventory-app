@@ -12,7 +12,18 @@ export const getBookToPrisma = async (id: string) => {
       id: id,
     },
     include: {
-      author: {},
+      author: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 
@@ -51,6 +62,20 @@ export const updateBookToPrisma = async (id: string, book: Book) => {
       id,
     },
     data: book,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
   });
 };
 

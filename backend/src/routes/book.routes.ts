@@ -8,14 +8,14 @@ import {
 } from "../controllers/book.controller";
 import { checkAuth } from "../middlewares/auth.middleware";
 import { validateSchema } from "../middlewares/validator.middleware";
-import { bookCreatedSchema } from "../schemas/book.schema";
+import { bookCreatedSchema, bookUpdatedSchema } from "../schemas/book.schema";
 
 const router = Router();
 
 router.get("/", checkAuth, getBooks);
 router.get("/:id", checkAuth, getBook);
 router.post("/", checkAuth, validateSchema(bookCreatedSchema), postBook);
-router.put("/:id", checkAuth, updateBook);
+router.patch("/:id", checkAuth, validateSchema(bookUpdatedSchema), updateBook);
 router.delete("/:id", checkAuth, deleteBook);
 
 export { router };
