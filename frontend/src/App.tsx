@@ -1,10 +1,11 @@
-import { TableTest } from "./components/TableTest";
+import { AppRouter } from "./router/AppRouter";
+import { ThemeProvider } from "@/components/theme-provider";
 
 function App() {
   return (
-    <main className="flex flex-col items-center justify-center h-screen">
-      <TableTest />
-    </main>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <AppRouter />
+    </ThemeProvider>
   );
 }
 

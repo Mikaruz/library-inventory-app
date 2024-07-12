@@ -28,13 +28,7 @@ export const postAuthorToPrisma = async (author: Author) => {
     });
 
     return authorCreated;
-  } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
-        throw new Error(`Author with name '${author.name}' already exists`);
-      }
-    }
-  }
+  } catch (error) {}
 };
 
 export const updateAuthorToPrisma = async (id: string, author: Author) => {
