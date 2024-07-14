@@ -55,15 +55,6 @@ export const SideBar = () => {
             <h5>Cerrar sesión</h5>
           </div>
         </div>
-
-        {/*   <nav>
-          <h1>Soy un sidebar</h1>
-          <NavLink to="/">Inicio</NavLink>
-          <NavLink to="/loans">Prestamos</NavLink>
-          <NavLink to="/books">Libros</NavLink>
-          <NavLink to="/categories">Categorías</NavLink>
-          <NavLink to="/readers">Lectores</NavLink>
-        </nav> */}
       </div>
       <button
         onClick={toggleMenu}
