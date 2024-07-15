@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { IconType } from "react-icons";
 
@@ -8,11 +7,7 @@ interface SideBarLinksProps {
   icon: IconType;
 }
 
-export const SideBarLinks: React.FC<SideBarLinksProps> = ({
-  to,
-  text,
-  icon: Icon,
-}) => {
+export const SideBarLinks = ({ to, text, icon: Icon }: SideBarLinksProps) => {
   return (
     <NavLink
       to={to}

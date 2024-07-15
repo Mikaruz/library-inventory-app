@@ -1,12 +1,14 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { SideBar } from "../layouts/SideBar";
 import { Header } from "../layouts/Header";
 import { Book, Category, Home, Loan, Reader } from "../pages";
 
 export const DashboardRoutes = () => {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen">
-      {/*    <Header /> */}
+      <Header name="Gerson" lastName="Trejo" currentRoute={location.pathname} />
       <SideBar />
       <Routes>
         <Route path="/" element={<Home />} />
