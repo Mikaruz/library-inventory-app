@@ -20,19 +20,19 @@ export const SideBar = () => {
   return (
     <>
       <div
-        className={`fixed top-0 w-3/4 xl:left-0 md:w-64 h-full shadow-2xl bg-gray-100 p-8 flex flex-col justify-between z-50 transition-all dark:bg-black ${
+        className={`fixed top-0 z-50 flex h-full w-3/4 flex-col justify-between overflow-y-auto bg-gray-100 p-8 shadow-2xl transition-all dark:bg-black md:w-64 xl:left-0 ${
           showMenu ? "left-0" : "-left-full"
         } `}
       >
         <div>
           <div>
-            <h1 className="text-xl uppercase font-bold">College A</h1>
+            <h1 className="text-xl font-bold uppercase">College A</h1>
             <h2 className="text-md">Biblioteca</h2>
           </div>
 
-          <div className="border-t border-gray-300 my-4"></div>
+          <div className="my-4 border-t border-gray-300"></div>
 
-          <div className="flex gap-2 flex-col mt-6">
+          <div className="mt-6 flex flex-col gap-2">
             <SideBarLinks to="/" text="Inicio" icon={RiHomeFill} />
             <SideBarLinks
               to="/loans"
@@ -49,7 +49,7 @@ export const SideBar = () => {
           </div>
         </div>
         <div>
-          <div className="border-t border-gray-300 my-4"></div>
+          <div className="my-4 border-t border-gray-300"></div>
           <div className="flex items-center gap-3">
             <RiLogoutBoxLine />
             <h5>Cerrar sesión</h5>
@@ -58,7 +58,7 @@ export const SideBar = () => {
       </div>
       <button
         onClick={toggleMenu}
-        className="xl:hidden fixed bottom-6 right-6 bg-gray-100 p-4 rounded-full dark:bg-black"
+        className="fixed bottom-6 right-6 rounded-full bg-gray-100 p-4 dark:bg-black xl:hidden"
       >
         {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
       </button>

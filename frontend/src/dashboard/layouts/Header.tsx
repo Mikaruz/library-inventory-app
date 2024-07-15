@@ -8,12 +8,10 @@ export const Header = ({ name, lastName, currentRoute }: HeaderProps) => {
   const initials = `${name.charAt(0)}${lastName.charAt(0)}`;
 
   return (
-    <div className="h-10 flex w-full xl:w-[calc(100%-256px)] xl:ml-64 justify-between items-center px-2">
-      <h2 className="text-md xl:text-xl font-semibold">
-        {getTitle(currentRoute)}
-      </h2>
-      <div className="flex justify-between items-center gap-2">
-        <div className="bg-gray-800 text-white font-semibold text-xs w-7 h-7 rounded-full flex items-center justify-center">
+    <div className="flex h-20 w-full items-center justify-between px-4 xl:ml-64 xl:w-[calc(100%-256px)] xl:px-7">
+      <h2 className="text-2xl font-semibold">{getTitle(currentRoute)}</h2>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 text-xs font-semibold text-white">
           {initials}
         </div>
         <p className="font-medium">{`${name} ${lastName}`}</p>
