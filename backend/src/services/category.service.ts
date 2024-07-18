@@ -105,6 +105,12 @@ export const deleteCategoryToPrisma = async (id: string) => {
       if (error.code === "P2025") {
         throw new Error(`Category with id '${id}' not found`);
       }
+
+      if (error.code === "P2003") {
+        throw new Error(
+          "No se pudo eliminar la categoría debido a restricciones de integridad en la base de datos. Asegúrate de eliminar todos los elementos relacionados antes de intentar eliminar esta categoría."
+        );
+      }
     }
   }
 };

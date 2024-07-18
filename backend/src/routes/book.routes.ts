@@ -12,8 +12,8 @@ import { bookCreatedSchema, bookUpdatedSchema } from "../schemas/book.schema";
 
 const router = Router();
 
-router.get("/", checkAuth, getBooks);
-router.get("/:id", checkAuth, getBook);
+router.get("/", getBooks);
+router.get("/:id", getBook);
 router.post("/", checkAuth, validateSchema(bookCreatedSchema), postBook);
 router.patch("/:id", checkAuth, validateSchema(bookUpdatedSchema), updateBook);
 router.delete("/:id", checkAuth, deleteBook);

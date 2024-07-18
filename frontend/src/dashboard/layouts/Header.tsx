@@ -30,6 +30,8 @@ const getTitle = (currentRoute: string) => {
       return "Libros";
     case "/categories":
       return "Categorías";
+    case "/categories/create":
+      return "Categorías";
     case "/readers":
       return "Lectores";
     default:

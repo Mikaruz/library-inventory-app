@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { IconType } from "react-icons";
+import { Icon } from "lucide-react";
 
 interface SideBarLinksProps {
   to: string;
   text: string;
-  icon: IconType;
+  icon: Icon;
 }
 
 export const SideBarLinks = ({ to, text, icon: Icon }: SideBarLinksProps) => {
@@ -13,8 +13,8 @@ export const SideBarLinks = ({ to, text, icon: Icon }: SideBarLinksProps) => {
       to={to}
       className={({ isActive }) =>
         isActive
-          ? "flex items-center gap-3 text-gray-200 bg-gray-800 p-2 rounded-md"
-          : "flex items-center gap-3 text-gray-800 p-2"
+          ? "flex items-center gap-3 rounded-md bg-gray-800 p-2 text-gray-200"
+          : "flex items-center gap-3 p-2 text-gray-800"
       }
     >
       <Icon />

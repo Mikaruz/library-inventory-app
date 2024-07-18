@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { prisma } from "../config/prisma";
 import { encrypt, verified } from "../utils/bcrypt.handle";
-import { generateToken } from "../utils/jwt.handle";
+import { generateToken, verifyToken } from "../utils/jwt.handle";
 
 export const registerUserToPrisma = async (user: User) => {
   const userExists = await prisma.user.findUnique({
@@ -43,4 +43,30 @@ export const loginUserToPrisma = async (user: User) => {
     token,
     userResponse,
   };
+};
+
+export const verifiedTokenToPrisma = async (token: string) => {
+  const decoded = verifyToken(token);
+
+  if (!decoded) {
+    throw new Error("Decoded token is empty");
+  }
+
+  console.log(decoded);
+
+  if (typeof decoded === "string") {
+    throw new Error("Decoded token is not an object");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: decoded.id,
+    },
+  });
+
+  if (!user) throw new Error("User not found");
+
+  const { id, password, ...userResponse } = user;
+
+  return userResponse;
 };

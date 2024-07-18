@@ -3,12 +3,17 @@ import { verifyToken } from "../utils/jwt.handle";
 import { unauthorizedException } from "../utils/error.handle";
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers.cookie);
+  next();
+
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+    const access_token = req.cookies;
+    console.log(access_token);
 
-    if (!token) unauthorizedException(res, "No token, authorization denied");
+    if (!access_token)
+      unauthorizedException(res, "No token, authorization denied");
 
-    const decoded = verifyToken(`${token}`);
+    const decoded = verifyToken(`${access_token}`);
 
     if (!decoded) {
       unauthorizedException(res, "Decoded token is empty");

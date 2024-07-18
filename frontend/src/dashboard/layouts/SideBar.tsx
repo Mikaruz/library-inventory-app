@@ -1,14 +1,15 @@
 import { useState } from "react";
-import {
-  RiCloseLine,
-  RiHomeFill,
-  RiLogoutBoxLine,
-  RiMenu3Fill,
-} from "react-icons/ri";
 import { SideBarLinks } from "../components/SideBarLinks";
-import { PiBookFill, PiBookOpenUserFill } from "react-icons/pi";
-import { FaBookReader } from "react-icons/fa";
-import { TbCategoryFilled } from "react-icons/tb";
+import {
+  Home,
+  LayoutGrid,
+  Book,
+  BookCopy,
+  BookMarked,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 
 export const SideBar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -33,25 +34,21 @@ export const SideBar = () => {
           <div className="my-4 border-t border-gray-300"></div>
 
           <div className="mt-6 flex flex-col gap-2">
-            <SideBarLinks to="/" text="Inicio" icon={RiHomeFill} />
-            <SideBarLinks
-              to="/loans"
-              text="Préstamos"
-              icon={PiBookOpenUserFill}
-            />
-            <SideBarLinks to="/books" text="Libros" icon={PiBookFill} />
+            <SideBarLinks to="/" text="Inicio" icon={Home} />
+            <SideBarLinks to="/loans" text="Préstamos" icon={BookCopy} />
+            <SideBarLinks to="/books" text="Libros" icon={Book} />
             <SideBarLinks
               to="/categories"
               text="Categorías"
-              icon={TbCategoryFilled}
+              icon={LayoutGrid}
             />
-            <SideBarLinks to="/readers" text="Lectores" icon={FaBookReader} />
+            <SideBarLinks to="/readers" text="Lectores" icon={BookMarked} />
           </div>
         </div>
         <div>
           <div className="my-4 border-t border-gray-300"></div>
           <div className="flex items-center gap-3">
-            <RiLogoutBoxLine />
+            <LogOut />
             <h5>Cerrar sesión</h5>
           </div>
         </div>
@@ -60,7 +57,7 @@ export const SideBar = () => {
         onClick={toggleMenu}
         className="fixed bottom-6 right-6 rounded-full bg-gray-100 p-4 dark:bg-black xl:hidden"
       >
-        {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
+        {showMenu ? <X /> : <Menu />}
       </button>
     </>
   );

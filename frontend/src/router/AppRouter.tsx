@@ -1,3 +1,4 @@
+import { Login } from "@/auth/pages/Login";
 import { DashboardRoutes } from "@/dashboard/routes/DashboardRoutes";
 import { Route, Routes } from "react-router-dom";
 
@@ -6,6 +7,7 @@ export const AppRouter = () => {
     <>
       <Routes>
         <Route path="/*" element={<DashboardRoutes />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
