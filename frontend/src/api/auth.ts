@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-
+import { AxiosResponse } from "axios";
+import axios from "./axios";
 const API = "http://localhost:3000/api";
 
 interface User {

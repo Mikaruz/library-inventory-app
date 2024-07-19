@@ -12,8 +12,8 @@ import { categorySchema } from "../schemas/category.schema";
 
 const router = Router();
 
-router.get("/", getCategories);
-router.get("/:term", getCategory);
+router.get("/", checkAuth, getCategories);
+router.get("/:term", checkAuth, getCategory);
 router.post("/", checkAuth, validateSchema(categorySchema), postCategory);
 router.patch("/:id", checkAuth, validateSchema(categorySchema), updateCategory);
 router.delete("/:id", checkAuth, deleteCategory);

@@ -3,11 +3,8 @@ import { verifyToken } from "../utils/jwt.handle";
 import { unauthorizedException } from "../utils/error.handle";
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.headers.cookie);
-  next();
-
   try {
-    const access_token = req.cookies;
+    const { access_token } = req.cookies;
     console.log(access_token);
 
     if (!access_token)
