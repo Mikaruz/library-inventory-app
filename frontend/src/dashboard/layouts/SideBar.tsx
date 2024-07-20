@@ -10,9 +10,12 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { useAuth } from "@/auth/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export const SideBar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const { logout } = useAuth();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -34,22 +37,32 @@ export const SideBar = () => {
           <div className="my-4 border-t border-gray-300"></div>
 
           <div className="mt-6 flex flex-col gap-2">
-            <SideBarLinks to="/" text="Inicio" icon={Home} />
-            <SideBarLinks to="/loans" text="Préstamos" icon={BookCopy} />
-            <SideBarLinks to="/books" text="Libros" icon={Book} />
+            <SideBarLinks to="/dashboard/home" text="Inicio" icon={Home} />
             <SideBarLinks
-              to="/categories"
+              to="/dashboard/loans"
+              text="Préstamos"
+              icon={BookCopy}
+            />
+            <SideBarLinks to="/dashboard/books" text="Libros" icon={Book} />
+            <SideBarLinks
+              to="/dashboard/categories"
               text="Categorías"
               icon={LayoutGrid}
             />
-            <SideBarLinks to="/readers" text="Lectores" icon={BookMarked} />
+            <SideBarLinks
+              to="/dashboard/readers"
+              text="Lectores"
+              icon={BookMarked}
+            />
           </div>
         </div>
         <div>
           <div className="my-4 border-t border-gray-300"></div>
           <div className="flex items-center gap-3">
             <LogOut />
-            <h5>Cerrar sesión</h5>
+            <Link to="/" onClick={logout}>
+              Cerrar sesión
+            </Link>
           </div>
         </div>
       </div>

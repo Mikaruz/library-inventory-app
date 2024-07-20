@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "../hooks/useAuth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   email: z
@@ -44,7 +45,14 @@ const formSchema = z.object({
 });
 
 export const Login = () => {
-  const { singIn } = useAuth();
+  const navigate = useNavigate();
+  const { singIn, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard/home");
+    }
+  }, [isAuthenticated, navigate]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,15 +68,16 @@ export const Login = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-200">
+    <div className="flex h-screen w-screen items-center justify-center md:bg-gray-200">
       <div className="flex h-[35rem] rounded-lg bg-white">
         <img
           src={loginImage}
-          className="h-auto w-80 rounded-lg object-cover grayscale filter"
+          className="hidden h-auto w-80 rounded-lg object-cover grayscale filter md:block"
           alt="login-image"
         />
         <div className="flex h-auto w-96 flex-col items-center justify-center py-10">
           <img src={book} className="mb-2 h-12 w-12" alt="logo" />
+
           <h2 className="mb-1 text-xl font-bold">Bienvenido</h2>
           <p className="mb-6 text-sm text-gray-600">
             Por favor, ingresa tus credenciales

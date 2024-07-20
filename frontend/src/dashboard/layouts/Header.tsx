@@ -22,17 +22,17 @@ export const Header = ({ name, lastName, currentRoute }: HeaderProps) => {
 
 const getTitle = (currentRoute: string) => {
   switch (currentRoute) {
-    case "/":
+    case "/dashboard/home":
       return "Inicio";
-    case "/loans":
+    case "/dashboard/loans":
       return "Préstamos";
-    case "/books":
+    case "/dashboard/books":
       return "Libros";
-    case "/categories":
+    case "/dashboard/categories":
       return "Categorías";
-    case "/categories/create":
+    case "/dashboard/categories/create":
       return "Categorías";
-    case "/readers":
+    case "/dashboard/readers":
       return "Lectores";
     default:
       return "Not found";
