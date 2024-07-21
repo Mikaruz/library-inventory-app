@@ -3,21 +3,13 @@ import { SideBar } from "../layouts/SideBar";
 import { Header } from "../layouts/Header";
 import { Book, Category, Home, Loan, Reader } from "../pages";
 import { CreateCategory } from "../pages/CreateCategory";
-import { useAuth } from "@/auth/hooks/useAuth";
 
 export const DashboardRoutes = () => {
   const location = useLocation();
-  const { user } = useAuth();
 
   return (
     <div className="min-h-screen">
-      {!!user && (
-        <Header
-          name={user.name}
-          lastName={user.lastName}
-          currentRoute={location.pathname}
-        />
-      )}
+      <Header currentRoute={location.pathname} />
       <SideBar />
       <Routes>
         <Route path="/home" element={<Home />} />

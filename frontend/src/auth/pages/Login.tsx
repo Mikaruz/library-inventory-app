@@ -62,9 +62,8 @@ export const Login = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     singIn(values.email, values.password);
-    console.log(values);
   }
 
   return (

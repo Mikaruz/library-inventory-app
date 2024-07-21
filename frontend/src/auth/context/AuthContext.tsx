@@ -6,6 +6,7 @@ type AuthContextProps = {
   singIn: (email: string, password: string) => void;
   isAuthenticated: boolean;
   logout: () => void;
+  isLoading: boolean;
 };
 
 export const AuthContext = createContext<AuthContextProps>(
