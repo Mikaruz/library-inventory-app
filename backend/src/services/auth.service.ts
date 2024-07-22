@@ -52,8 +52,6 @@ export const verifiedTokenToPrisma = async (token: string) => {
     throw new Error("Decoded token is empty");
   }
 
-  console.log(decoded);
-
   if (typeof decoded === "string") {
     throw new Error("Decoded token is not an object");
   }

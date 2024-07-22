@@ -5,7 +5,6 @@ import { unauthorizedException } from "../utils/error.handle";
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const { access_token } = req.cookies;
-    console.log(access_token);
 
     if (!access_token)
       unauthorizedException(res, "No token, authorization denied");
