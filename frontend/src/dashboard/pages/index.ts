@@ -1,5 +1,5 @@
 export * from "./Book";
-export * from "./Category";
+export * from "./CategoryPage";
 export * from "./Home";
 export * from "./Loan";
 export * from "./Reader";
