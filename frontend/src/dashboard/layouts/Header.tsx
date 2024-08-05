@@ -6,6 +6,7 @@ interface HeaderProps {
 
 export const Header = ({ currentRoute }: HeaderProps) => {
   const { user } = useAuth();
+
   const initials = `${user?.name.charAt(0)}${user?.lastName.charAt(0)}`;
 
   return (

@@ -30,7 +30,7 @@ export const SideBar = () => {
       >
         <div>
           <div>
-            <h1 className="text-xl font-bold uppercase">College A</h1>
+            <h1 className="text-xl font-bold uppercase">Library+</h1>
             <h2 className="text-md">Biblioteca</h2>
           </div>
 

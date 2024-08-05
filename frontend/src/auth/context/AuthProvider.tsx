@@ -5,20 +5,22 @@ import {
 } from "@/auth/api/auth";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import { User } from "../interfaces/user";
 
-interface props {
+interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-export const AuthProvider = ({ children }: props) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const singIn = async (email: string, password: string) => {
     try {
-      const response = await loginRequest(email, password);
-      setUser(response.data);
+      const user = await loginRequest(email, password);
+
+      setUser(user);
       setIsAuthenticated(true);
       setIsLoading(false);
     } catch (error) {
@@ -41,11 +43,11 @@ export const AuthProvider = ({ children }: props) => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const response = await verifyTokenRequest();
+        const user = await verifyTokenRequest();
 
-        if (!response.data) return setIsAuthenticated(false);
+        if (!user) return setIsAuthenticated(false);
 
-        setUser(response.data);
+        setUser(user);
         setIsAuthenticated(true);
         setIsLoading(false);
       } catch (error) {

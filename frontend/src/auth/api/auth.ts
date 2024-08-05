@@ -1,16 +1,18 @@
-import { AxiosResponse } from "axios";
 import axios from "../../api/axios";
+import { User } from "../interfaces/user";
 
 export const loginRequest = async (
   email: string,
   password: string,
-): Promise<AxiosResponse> => {
-  const response = await axios.post("/auth/login ", { email, password });
-  return response;
+): Promise<User> => {
+  const { data } = await axios.post("/auth/login ", { email, password });
+  return data;
 };
 
-export const verifyTokenRequest = async (): Promise<AxiosResponse> =>
-  axios.get(`/auth/verify`);
+export const verifyTokenRequest = async (): Promise<User> => {
+  const { data } = await axios.get(`/auth/verify`);
+  return data;
+};
 
-export const logoutRequest = async (): Promise<AxiosResponse> =>
+export const logoutRequest = async (): Promise<void> =>
   axios.post(`/auth/logout`);
