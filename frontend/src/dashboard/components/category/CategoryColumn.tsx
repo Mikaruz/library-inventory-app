@@ -50,11 +50,11 @@ export const columns: ColumnDef<Category>[] = [
                 });
               }}
             >
-              Copy payment ID
+              Copiar ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Ver categoría</DropdownMenuItem>
+            <DropdownMenuItem>View detalles</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

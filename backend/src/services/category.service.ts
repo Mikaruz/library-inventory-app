@@ -2,15 +2,26 @@ import { Category, Prisma } from "@prisma/client";
 import { prisma } from "../config/prisma";
 
 export const getCategoriesToPrisma = async () => {
-  return await prisma.category.findMany({
+  const categories = await prisma.category.findMany({
     select: {
       id: true,
       name: true,
+      _count: {
+        select: {
+          books: true,
+        },
+      },
     },
     orderBy: {
       name: "asc",
     },
   });
+
+  return categories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    books: category._count.books,
+  }));
 };
 
 export const getCategoryToPrisma = async (term: string) => {

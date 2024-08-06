@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }: Props) => {
 
     try {
       const user = await loginRequest(email, password);
-
       dispatch({ type: "LOGIN_SUCCESS", payload: user });
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: "Error al ingresar" });
