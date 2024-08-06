@@ -1,14 +1,10 @@
 import { createContext } from "react";
-import { User } from "../interfaces/user";
+import { AuthState } from "../interfaces";
 
-type AuthContextProps = {
-  user: User | null;
+type Props = {
+  authState: AuthState;
   singIn: (email: string, password: string) => void;
-  isAuthenticated: boolean;
   logout: () => void;
-  isLoading: boolean;
 };
 
-export const AuthContext = createContext<AuthContextProps>(
-  {} as AuthContextProps,
-);
+export const AuthContext = createContext<Props>({} as Props);

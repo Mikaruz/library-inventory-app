@@ -1,29 +1,32 @@
-import {
-  loginRequest,
-  logoutRequest,
-  verifyTokenRequest,
-} from "@/auth/api/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
+import { AuthState } from "../interfaces";
+import { authReducer } from "./authReducer";
+import { loginRequest, logoutRequest, verifyTokenRequest } from "../api/auth";
 import { AuthContext } from "./AuthContext";
-import { User } from "../interfaces/user";
+
+const INITIAL_STATE: AuthState = {
+  user: null,
+  isAuthenticated: false,
+  error: null,
+  isLoading: false,
+};
 
 interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE);
 
   const singIn = async (email: string, password: string) => {
+    dispatch({ type: "LOGIN_START" });
+
     try {
       const user = await loginRequest(email, password);
 
-      setUser(user);
-      setIsAuthenticated(true);
-      setIsLoading(false);
+      dispatch({ type: "LOGIN_SUCCESS", payload: user });
     } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE", payload: "Error al ingresar" });
       console.log(error);
     }
   };
@@ -32,38 +35,36 @@ export const AuthProvider = ({ children }: Props) => {
     try {
       await logoutRequest();
 
-      setIsLoading(false);
-      setUser(null);
-      setIsAuthenticated(false);
+      dispatch({ type: "LOGOUT" });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    dispatch({ type: "LOGIN_START" });
+
     const checkLogin = async () => {
       try {
         const user = await verifyTokenRequest();
 
-        if (!user) return setIsAuthenticated(false);
+        if (!user)
+          return dispatch({
+            type: "LOGIN_FAILURE",
+            payload: "Error al ingresar",
+          });
 
-        setUser(user);
-        setIsAuthenticated(true);
-        setIsLoading(false);
+        dispatch({ type: "LOGIN_SUCCESS", payload: user });
       } catch (error) {
+        dispatch({ type: "LOGIN_FAILURE", payload: "Error al ingresar" });
         console.log(error);
-
-        setIsAuthenticated(false);
-        setIsLoading(false);
       }
     };
     checkLogin();
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, singIn, isAuthenticated, isLoading, logout }}
-    >
+    <AuthContext.Provider value={{ authState, singIn, logout }}>
       {children}
     </AuthContext.Provider>
   );

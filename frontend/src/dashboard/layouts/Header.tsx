@@ -1,10 +1,10 @@
 import { useAuth } from "@/auth/hooks/useAuth";
 
-interface HeaderProps {
+interface Props {
   currentRoute: string;
 }
 
-export const Header = ({ currentRoute }: HeaderProps) => {
+export const Header = ({ currentRoute }: Props) => {
   const { user } = useAuth();
 
   const initials = `${user?.name.charAt(0)}${user?.lastName.charAt(0)}`;
