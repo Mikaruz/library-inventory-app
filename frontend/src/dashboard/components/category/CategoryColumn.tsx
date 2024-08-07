@@ -6,16 +6,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-
-export type Category = {
-  id: string;
-  name: string;
-  amount: number;
-};
+import { Category } from "@/dashboard/interfaces/category";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -24,7 +18,7 @@ export const columns: ColumnDef<Category>[] = [
   },
 
   {
-    accessorKey: "amount",
+    accessorKey: "books",
     header: "Cantidad de libros",
   },
   {
@@ -52,9 +46,7 @@ export const columns: ColumnDef<Category>[] = [
             >
               Copiar ID
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem>Ver categoría</DropdownMenuItem>
-            <DropdownMenuItem>View detalles</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

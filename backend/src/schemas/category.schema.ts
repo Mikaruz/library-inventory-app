@@ -9,7 +9,7 @@ export const categorySchema = z
       .min(2, {
         message: "Name must be at least 2 characters",
       })
-      .max(20, {
+      .max(25, {
         message: "Name must be at most 20 characters",
       }),
   })

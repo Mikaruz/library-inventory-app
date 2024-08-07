@@ -1,20 +1,11 @@
 import { Link } from "react-router-dom";
-import { Category, columns } from "../components/category/CategoryColumn";
+import { columns } from "../components/category/CategoryColumn";
 import { DataTable } from "../components/category/CategoryTable";
-
-async function getData(): Promise<Category[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      name: "Category 1",
-      amount: 100,
-    },
-  ];
-}
-const data = await getData();
+import { useCategories } from "../hooks/useCategories";
 
 export const CategoryPage = () => {
+  const { isLoading, categories } = useCategories();
+
   return (
     <main className="h-full w-full p-4 xl:ml-64 xl:w-[calc(100%-256px)] xl:px-7">
       <Link
@@ -23,9 +14,15 @@ export const CategoryPage = () => {
       >
         Crear categoría
       </Link>
-      <div className="py-5">
-        <DataTable columns={columns} data={data} />
-      </div>
+
+      {/* //TODO: Agregar el Spinner */}
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <div className="py-5">
+          <DataTable columns={columns} data={categories} />
+        </div>
+      )}
     </main>
   );
 };

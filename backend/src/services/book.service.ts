@@ -18,12 +18,6 @@ export const getBookToPrisma = async (id: string) => {
           name: true,
         },
       },
-      category: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
     },
   });
 
@@ -53,7 +47,9 @@ export const postBookToPrisma = async (book: Book) => {
     });
 
     return bookCreated;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateBookToPrisma = async (id: string, book: Book) => {
@@ -64,12 +60,6 @@ export const updateBookToPrisma = async (id: string, book: Book) => {
     data: book,
     include: {
       author: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      category: {
         select: {
           id: true,
           name: true,

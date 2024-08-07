@@ -14,7 +14,7 @@ model User {
   lastName String
   password String
   role     Role   @default(USER)
-  Loan     Loan[]
+  loans    Loan[]
 }
 
 model Reader {
@@ -26,7 +26,7 @@ model Reader {
   phone     String    @unique
   address   String
   ocupation Ocupation @default(STUDENT)
-  Loan      Loan[]
+  loans     Loan[]
 }
 
 model Book {
@@ -36,10 +36,10 @@ model Book {
   authorId        String
   publisher       String
   publicationYear Int
-  category        Category @relation(fields: [categoryId], references: [id])
-  categoryId      String
   copiesAvailable Int
-  Loan            Loan[]
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  loans           Loan[]
 }
 
 model Author {
