@@ -33,12 +33,7 @@ export const getCategoryToPrisma = async (term: string) => {
         id: term.toLowerCase().trim(),
       },
       include: {
-        books: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
+        books: true,
       },
     });
   }
@@ -49,12 +44,7 @@ export const getCategoryToPrisma = async (term: string) => {
         name: term.toLowerCase().trim(),
       },
       include: {
-        books: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
+        books: true,
       },
     });
   }

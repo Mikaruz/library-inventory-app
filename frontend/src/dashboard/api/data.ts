@@ -6,3 +6,9 @@ export const getCategories = async (): Promise<Category[]> => {
 
   return data;
 };
+
+export const getCategory = async (categoryId: string): Promise<Category> => {
+  const { data } = await axios.get(`/category/${categoryId}`);
+
+  return data;
+};

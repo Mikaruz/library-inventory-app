@@ -48,6 +48,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const { singIn, isAuthenticated } = useAuth();
 
+  //TODO Mejorar el flujo de redirección
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard/home");

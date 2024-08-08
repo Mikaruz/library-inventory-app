@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { Category } from "@/dashboard/interfaces/category";
+import { Link } from "react-router-dom";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -24,7 +25,7 @@ export const columns: ColumnDef<Category>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const category = row.original;
 
       return (
         <DropdownMenu>
@@ -38,7 +39,7 @@ export const columns: ColumnDef<Category>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                navigator.clipboard.writeText(payment.id);
+                navigator.clipboard.writeText(category.id);
                 toast("ID de la categoría copiado en el portapapeles", {
                   position: "top-right",
                 });
@@ -46,7 +47,15 @@ export const columns: ColumnDef<Category>[] = [
             >
               Copiar ID
             </DropdownMenuItem>
-            <DropdownMenuItem>Ver categoría</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                console.log(category.id);
+              }}
+            >
+              <Link to={`/dashboard/categories/${category.id}`}>
+                Ver categoría
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

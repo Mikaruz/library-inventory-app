@@ -23,6 +23,10 @@ export const Header = ({ currentRoute }: Props) => {
 };
 
 const getTitle = (currentRoute: string) => {
+  if (currentRoute.includes("/dashboard/categories")) {
+    return "Categorías";
+  }
+
   switch (currentRoute) {
     case "/dashboard/home":
       return "Inicio";
@@ -30,10 +34,6 @@ const getTitle = (currentRoute: string) => {
       return "Préstamos";
     case "/dashboard/books":
       return "Libros";
-    case "/dashboard/categories":
-      return "Categorías";
-    case "/dashboard/categories/create":
-      return "Categorías";
     case "/dashboard/readers":
       return "Lectores";
     default:
