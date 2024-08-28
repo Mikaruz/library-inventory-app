@@ -12,3 +12,9 @@ export const getCategory = async (categoryId: string): Promise<Category> => {
 
   return data;
 };
+
+export const createCategory = async (category: Category): Promise<Category> => {
+  const { data } = await axios.post(`/category`, category);
+
+  return data;
+};
