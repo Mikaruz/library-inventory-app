@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { columns } from "../../components/category/CategoryColumn";
 import { DataTable } from "../../components/category/CategoryTable";
-import { useCategories } from "../../hooks/useCategories";
+import { useQueryCategories } from "../../hooks/category/useQueryCategories";
 
 export const CategoriesPage = () => {
-  const { isLoading, categories } = useCategories();
+  const { isLoading, categories } = useQueryCategories();
 
   return (
     <main className="h-full w-full p-4 xl:ml-64 xl:w-[calc(100%-256px)] xl:px-7">
@@ -19,7 +19,7 @@ export const CategoriesPage = () => {
       {isLoading ? (
         <p>Cargando...</p>
       ) : (
-        <div className="py-5">
+        <div className="py-4">
           <DataTable columns={columns} data={categories} />
         </div>
       )}

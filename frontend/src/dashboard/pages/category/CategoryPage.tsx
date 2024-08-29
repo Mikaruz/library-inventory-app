@@ -1,11 +1,11 @@
-import { useCategory } from "@/dashboard/hooks/useCategory";
+import { useQueryCategory } from "@/dashboard/hooks/category/useQueryCategory";
 import { useParams } from "react-router-dom";
 
 export const CategoryPage = () => {
   const params = useParams();
   const categoryId = params.id ?? "0";
 
-  const { isLoading, category } = useCategory(categoryId);
+  const { isLoading, category } = useQueryCategory(categoryId);
 
   if (isLoading) {
     return <div>Cargando</div>;
