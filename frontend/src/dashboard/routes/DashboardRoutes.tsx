@@ -5,7 +5,6 @@ import {
   Book,
   CategoriesPage,
   CategoryPage,
-  CreateCategoryPage,
   Home,
   Loan,
   Reader,
@@ -24,7 +23,6 @@ export const DashboardRoutes = () => {
         <Route path="/loans" element={<Loan />} />
         <Route path="/books" element={<Book />} />
         <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/categories/create" element={<CreateCategoryPage />} />
         <Route path="/categories/:id" element={<CategoryPage />} />
         <Route path="/readers" element={<Reader />} />
       </Routes>

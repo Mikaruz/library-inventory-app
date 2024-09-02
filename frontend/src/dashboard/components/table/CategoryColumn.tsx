@@ -24,6 +24,7 @@ export const columns: ColumnDef<Category>[] = [
   },
   {
     id: "actions",
+
     cell: ({ row }) => {
       const category = row.original;
 
@@ -36,7 +37,7 @@ export const columns: ColumnDef<Category>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
                 navigator.clipboard.writeText(category.id);

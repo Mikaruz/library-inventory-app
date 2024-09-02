@@ -1,9 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import loginImage from "../assets/login-image.jpg";
-import book from "../assets/book.svg";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,35 +8,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "../hooks/useAuth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
-const formSchema = z.object({
-  email: z
-    .string({
-      required_error: "El correo electrónico es obligatorio",
-    })
-    .min(5, {
-      message: "El correo electrónico debe tener al menos 5 caracteres",
-    })
-    .max(255, {
-      message: "El correo electrónico no debe exceder los 255 caracteres",
-    })
-    .email({
-      message: "El correo electrónico no es válido",
-    }),
-  password: z
-    .string({
-      required_error: "La contraseña es obligatoria",
-    })
-    .min(5, {
-      message: "La contraseña debe tener al menos 5 caracteres",
-    })
-    .max(16, {
-      message: "La contraseña debe tener como máximo 16 caracteres",
-    }),
-});
+import { z } from "zod";
+import book from "../assets/book.svg";
+import loginImage from "../assets/login-image.jpg";
+import { useAuth } from "../hooks/useAuth";
+import { formSchema } from "../schemas/formSchema";
 
 export const Login = () => {
   const navigate = useNavigate();

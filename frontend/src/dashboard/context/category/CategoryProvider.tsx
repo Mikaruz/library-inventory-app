@@ -1,4 +1,8 @@
-import { createCategoryRequest } from "@/dashboard/api/data";
+import {
+  createCategoryRequest,
+  deleteCategoryRequest,
+  updateCategoryRequest,
+} from "@/dashboard/api/data";
 import { CategoryContext } from "./CategoryContext";
 
 interface Props {
@@ -14,8 +18,26 @@ export const CategoryProvider = ({ children }: Props) => {
     }
   };
 
+  const updateCategory = async (id: string, name: string) => {
+    try {
+      await updateCategoryRequest(id, name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteCategory = async (id: string) => {
+    try {
+      await deleteCategoryRequest(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <CategoryContext.Provider value={{ createCategory }}>
+    <CategoryContext.Provider
+      value={{ createCategory, updateCategory, deleteCategory }}
+    >
       {children}
     </CategoryContext.Provider>
   );
