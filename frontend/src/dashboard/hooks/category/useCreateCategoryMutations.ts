@@ -1,14 +1,14 @@
-import { createCategory } from "@/dashboard/api/data";
+import { createCategory } from "@/dashboard/api/categoryApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const useCategoryMutation = () => {
+export const useCreateCategoryMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: createCategory,
     onSuccess: () => {
-      toast.error("Se creo la categoría exitosamente", {
+      toast.success("Se creo la categoría exitosamente.", {
         position: "top-right",
       });
       queryClient.invalidateQueries({ queryKey: ["categories"] });

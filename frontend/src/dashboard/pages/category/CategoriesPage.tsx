@@ -17,19 +17,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCategoryMutation } from "@/dashboard/hooks/category/useCategoryMutations";
+import { useCreateCategoryMutation } from "@/dashboard/hooks/category/useCreateCategoryMutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { columns } from "../../components/table/CategoryColumn";
 import { DataTable } from "../../components/table/DataTable";
-import { useQueryCategories } from "../../hooks/category/useQueryCategories";
+import { useQueryCategories } from "../../hooks/category/useCategories";
 
 export const CategoriesPage = () => {
   const [open, setOpen] = useState(false);
   const { isLoading, categories } = useQueryCategories();
-  const categoryMutation = useCategoryMutation();
+  const categoryCreateMutation = useCreateCategoryMutation();
 
   const formSchema = z.object({
     name: z
@@ -52,7 +52,7 @@ export const CategoriesPage = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    categoryMutation.mutate(values.name);
+    categoryCreateMutation.mutate(values.name);
     setOpen(false);
   }
 

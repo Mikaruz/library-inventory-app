@@ -14,11 +14,6 @@ export const getCategory = async (categoryId: string): Promise<Category> => {
   return data;
 };
 
-export const createCategoryRequest = async (name: string): Promise<void> => {
-  const { data } = await axiosInstance.post(`/category`, { name });
-
-  return data;
-};
 export const createCategory = async (name: string): Promise<void> => {
   try {
     const { data } = await axiosInstance.post(`/category`, { name });
@@ -32,7 +27,7 @@ export const createCategory = async (name: string): Promise<void> => {
       throw new Error(errorMessage);
     } else {
       console.log(error);
-      throw new Error("Ocurrió un error inesperado al crear la categoría");
+      throw new Error("Ocurrió un error inesperado.");
     }
   }
 };
@@ -46,8 +41,19 @@ export const updateCategoryRequest = async (
   return data;
 };
 
-export const deleteCategoryRequest = async (id: string): Promise<void> => {
-  const { data } = await axiosInstance.delete(`/category/${id}`);
+export const deleteCategory = async (id: string): Promise<void> => {
+  try {
+    const { data } = await axiosInstance.delete(`/category/${id}`);
 
-  return data;
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage: string = error.response?.data?.message;
+
+      throw new Error(errorMessage);
+    } else {
+      console.log(error);
+      throw new Error("Ocurrió un error inesperado.");
+    }
+  }
 };

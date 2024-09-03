@@ -1,7 +1,11 @@
 import { useEffect, useReducer } from "react";
 import { AuthState } from "../interfaces";
 import { authReducer } from "./authReducer";
-import { loginRequest, logoutRequest, verifyTokenRequest } from "../api/auth";
+import {
+  loginRequest,
+  logoutRequest,
+  verifyTokenRequest,
+} from "../api/authApi";
 import { AuthContext } from "./AuthContext";
 
 const INITIAL_STATE: AuthState = {
