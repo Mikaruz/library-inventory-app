@@ -1,9 +1,12 @@
-import { CategoryContext } from "@/dashboard/context/category/CategoryContext";
-import { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getCategory } from "../../api/data";
 
-export const useCategory = () => {
-  const { createCategory, updateCategory, deleteCategory } =
-    useContext(CategoryContext);
+export const useQueryCategory = (categoryId: string) => {
+  const { isLoading, data: category } = useQuery({
+    queryKey: ["categories", categoryId],
+    queryFn: () => getCategory(categoryId),
+    staleTime: 1000 * 60 * 5,
+  });
 
-  return { createCategory, updateCategory, deleteCategory };
+  return { isLoading, category };
 };

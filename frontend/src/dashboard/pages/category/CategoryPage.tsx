@@ -1,5 +1,4 @@
-import { useCategory } from "@/dashboard/hooks/category/useCategory";
-import { useQueryCategory } from "@/dashboard/hooks/category/useQueryCategory";
+import { useQueryCategory } from "@/dashboard/hooks/category/useCategory";
 import { useParams } from "react-router-dom";
 import {
   AlertDialog,
@@ -15,7 +14,7 @@ import {
 
 export const CategoryPage = () => {
   const params = useParams();
-  const { deleteCategory } = useCategory();
+  /*  const { deleteCategory } = useCategory(); */
   const categoryId = params.id ?? "0";
 
   const { isLoading, category } = useQueryCategory(categoryId);
@@ -49,7 +48,7 @@ export const CategoryPage = () => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
-                  deleteCategory(categoryId);
+                  /* deleteCategory(categoryId); */
                   console.log("Category deleted");
                 }}
               >
