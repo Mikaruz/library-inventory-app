@@ -1,15 +1,3 @@
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useDeleteCategoryMutation } from "@/dashboard/hooks/category/useDeleteCategoryMutation";
-import { Category } from "@/dashboard/interfaces/category";
-import { MoreHorizontal } from "lucide-react";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,14 +7,71 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useDeleteCategoryMutation } from "@/dashboard/hooks/category/useDeleteCategoryMutation";
+import { Category } from "@/dashboard/interfaces/category";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
 export const CategoryActions: React.FC<{ category: Category }> = ({
   category,
 }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const formSchema = z.object({
+    name: z
+      .string({
+        required_error: "Name is required",
+      })
+      .min(2, {
+        message: "Name must be at least 2 characters",
+      })
+      .max(25, {
+        message: "Name must be at most 20 characters",
+      }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values.name);
+    setIsEditOpen(false);
+  }
 
   const deleteCategoryMutation = useDeleteCategoryMutation();
 
@@ -39,7 +84,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
 
   return (
     <>
-      <AlertDialog open={isDeleteOpen}>
+      <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -67,6 +112,36 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Editar categoría</DialogTitle>
+            <DialogDescription>
+              Edita el nombre de la categoría.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Categoría nueva" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button type="submit">Editar</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -77,7 +152,13 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem onClick={handleCopyId}>Copiar ID</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleCopyId}>Editar</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              setIsEditOpen(true);
+            }}
+          >
+            Editar
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
               setIsDeleteOpen(true);
