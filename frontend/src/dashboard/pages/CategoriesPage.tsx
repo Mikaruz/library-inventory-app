@@ -22,36 +22,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { columns } from "../../components/table/CategoryColumn";
-import { DataTable } from "../../components/table/DataTable";
-import { useQueryCategories } from "../../hooks/category/useCategories";
+import { columns } from "../components/table/CategoryColumn";
+import { DataTable } from "../components/table/DataTable";
+import { useQueryCategories } from "../hooks/category/useCategories";
+import { categoryCreateSchema } from "../schemas";
+import { SyncLoader } from "react-spinners";
 
 export const CategoriesPage = () => {
   const [open, setOpen] = useState(false);
+
   const { isLoading, categories } = useQueryCategories();
   const categoryCreateMutation = useCreateCategoryMutation();
 
-  const formSchema = z.object({
-    name: z
-      .string({
-        required_error: "Name is required",
-      })
-      .min(2, {
-        message: "Name must be at least 2 characters",
-      })
-      .max(25, {
-        message: "Name must be at most 20 characters",
-      }),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof categoryCreateSchema>>({
+    resolver: zodResolver(categoryCreateSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof categoryCreateSchema>) {
     categoryCreateMutation.mutate(values);
     setOpen(false);
   }
@@ -94,9 +84,11 @@ export const CategoriesPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* //TODO: Agregar el Spinner */}
       {isLoading ? (
-        <p>Cargando...</p>
+        <div className="flex h-96 flex-col items-center justify-center gap-5">
+          <SyncLoader size={20} color="#272E3F" speedMultiplier={0.5} />
+          <span className="text-lg font-semibold">Cargando...</span>
+        </div>
       ) : (
         <div className="py-4">
           <DataTable columns={columns} data={categories} />

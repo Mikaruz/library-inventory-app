@@ -36,6 +36,8 @@ const getTitle = (currentRoute: string) => {
       return "Libros";
     case "/dashboard/readers":
       return "Lectores";
+    case "/dashboard/authors":
+      return "Autores";
     default:
       return "Not found";
   }

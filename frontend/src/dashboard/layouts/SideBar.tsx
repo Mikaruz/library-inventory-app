@@ -9,6 +9,7 @@ import {
   LogOut,
   Menu,
   X,
+  FileSignature,
 } from "lucide-react";
 import { useAuth } from "@/auth/hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -48,6 +49,11 @@ export const SideBar = () => {
               to="/dashboard/categories"
               text="Categorías"
               icon={LayoutGrid}
+            />
+            <SideBarLinks
+              to="/dashboard/authors"
+              text="Autores"
+              icon={FileSignature}
             />
             <SideBarLinks
               to="/dashboard/readers"

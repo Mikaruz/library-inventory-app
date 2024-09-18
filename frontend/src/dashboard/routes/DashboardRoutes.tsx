@@ -1,15 +1,16 @@
+import { Toaster } from "@/components/ui/sonner";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { SideBar } from "../layouts/SideBar";
 import { Header } from "../layouts/Header";
+import { SideBar } from "../layouts/SideBar";
 import {
+  AuthorsPage,
   Book,
   CategoriesPage,
-  CategoryPage,
   Home,
   Loan,
   Reader,
 } from "../pages";
-import { Toaster } from "@/components/ui/sonner";
+
 export const DashboardRoutes = () => {
   const location = useLocation();
 
@@ -23,7 +24,7 @@ export const DashboardRoutes = () => {
         <Route path="/loans" element={<Loan />} />
         <Route path="/books" element={<Book />} />
         <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/categories/:id" element={<CategoryPage />} />
+        <Route path="/authors" element={<AuthorsPage />} />
         <Route path="/readers" element={<Reader />} />
       </Routes>
     </div>
