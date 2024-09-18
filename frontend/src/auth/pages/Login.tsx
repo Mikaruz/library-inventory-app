@@ -38,7 +38,7 @@ export const Login = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    singIn(values.email, values.password);
+    singIn(values);
   }
 
   return (

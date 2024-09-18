@@ -52,7 +52,7 @@ export const CategoriesPage = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    categoryCreateMutation.mutate(values.name);
+    categoryCreateMutation.mutate(values);
     setOpen(false);
   }
 

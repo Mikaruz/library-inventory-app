@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import { AuthState } from "../interfaces";
+import { AuthState, UserLogin } from "../interfaces";
 
 type Props = {
   authState: AuthState;
-  singIn: (email: string, password: string) => void;
+  singIn: (user: UserLogin) => void;
   logout: () => void;
 };
 

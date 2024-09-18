@@ -8,7 +8,7 @@ export const useUpdateCategoryMutation = () => {
   const mutation = useMutation({
     mutationFn: updateCategory,
     onSuccess: () => {
-      toast.success("Se eliminó la categoría exitosamente.", {
+      toast.success("Se actualizó la categoría exitosamente.", {
         position: "top-right",
       });
       queryClient.invalidateQueries({ queryKey: ["categories"] });

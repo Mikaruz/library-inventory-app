@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { AuthState } from "../interfaces";
+import { AuthState, UserLogin } from "../interfaces";
 import { authReducer } from "./authReducer";
 import {
   loginRequest,
@@ -22,11 +22,14 @@ interface Props {
 export const AuthProvider = ({ children }: Props) => {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE);
 
-  const singIn = async (email: string, password: string) => {
+  const singIn = async (userLogin: UserLogin) => {
     dispatch({ type: "LOGIN_START" });
 
     try {
-      const user = await loginRequest(email, password);
+      const user = await loginRequest({
+        email: userLogin.email,
+        password: userLogin.password,
+      });
       dispatch({ type: "LOGIN_SUCCESS", payload: user });
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: "Error al ingresar" });

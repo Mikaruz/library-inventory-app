@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useDeleteCategoryMutation } from "@/dashboard/hooks/category/useDeleteCategoryMutation";
+import { useUpdateCategoryMutation } from "@/dashboard/hooks/category/useUpdateCategoryMutation";
 import { Category } from "@/dashboard/interfaces/category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoreHorizontal } from "lucide-react";
@@ -47,6 +48,9 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
 }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const deleteCategoryMutation = useDeleteCategoryMutation();
+  const updateCategoryMutation = useUpdateCategoryMutation();
 
   const formSchema = z.object({
     name: z
@@ -68,12 +72,10 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values.name);
+  function onEditSubmit(values: z.infer<typeof formSchema>) {
+    updateCategoryMutation.mutate({ id: category.id, ...values });
     setIsEditOpen(false);
   }
-
-  const deleteCategoryMutation = useDeleteCategoryMutation();
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(category.id);
@@ -87,10 +89,10 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
       <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Esta acción no se puede deshacer. Esto eliminará permanentemente
+              la categoría.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -121,7 +123,10 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onEditSubmit)}
+              className="space-y-8"
+            >
               <FormField
                 control={form.control}
                 name="name"
