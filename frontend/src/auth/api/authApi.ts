@@ -1,16 +1,18 @@
 import axios from "../../api/axios";
-import { User } from "../interfaces/user";
+import { User, UserLogin } from "../interfaces/user";
 
-export const loginRequest = async (
-  email: string,
-  password: string,
-): Promise<User> => {
-  const { data } = await axios.post("/auth/login ", { email, password });
+export const loginRequest = async (user: UserLogin): Promise<User> => {
+  const { data } = await axios.post("/auth/login ", {
+    email: user.email,
+    password: user.password,
+  });
+
   return data;
 };
 
 export const verifyTokenRequest = async (): Promise<User> => {
   const { data } = await axios.get(`/auth/verify`);
+
   return data;
 };
 
