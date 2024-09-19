@@ -34,10 +34,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useDeleteCategoryMutation } from "@/dashboard/hooks/category/useDeleteCategoryMutation";
-import { useUpdateCategoryMutation } from "@/dashboard/hooks/category/useUpdateCategoryMutation";
-import { Category } from "@/dashboard/interfaces/category";
-import { categoryUpdateSchema } from "@/dashboard/schemas";
+import {
+  useDeleteAuthorMutation,
+  useUpdateAuthorMutation,
+} from "@/dashboard/hooks/author";
+
+import { Author } from "@/dashboard/interfaces/author";
+import { authorUpdateSchema } from "@/dashboard/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
@@ -45,30 +48,28 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-export const CategoryActions: React.FC<{ category: Category }> = ({
-  category,
-}) => {
+export const AuthorActions: React.FC<{ author: Author }> = ({ author }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  const deleteCategoryMutation = useDeleteCategoryMutation();
-  const updateCategoryMutation = useUpdateCategoryMutation();
+  const deleteAuthorMutation = useDeleteAuthorMutation();
+  const updateAuthorMutation = useUpdateAuthorMutation();
 
-  const form = useForm<z.infer<typeof categoryUpdateSchema>>({
-    resolver: zodResolver(categoryUpdateSchema),
+  const form = useForm<z.infer<typeof authorUpdateSchema>>({
+    resolver: zodResolver(authorUpdateSchema),
     defaultValues: {
-      id: category.id,
+      id: author.id,
       name: "",
     },
   });
 
-  function onEditSubmit(values: z.infer<typeof categoryUpdateSchema>) {
-    updateCategoryMutation.mutate(values);
+  function onEditSubmit(values: z.infer<typeof authorUpdateSchema>) {
+    updateAuthorMutation.mutate(values);
     setIsEditOpen(false);
   }
 
   const handleCopyId = () => {
-    navigator.clipboard.writeText(category.id);
+    navigator.clipboard.writeText(author.id);
     toast("ID de la categoría copiado en el portapapeles", {
       position: "top-right",
     });
@@ -82,7 +83,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
             <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
             <AlertDialogDescription>
               Esta acción no se puede deshacer. Esto eliminará permanentemente
-              la categoría.
+              el autor.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -95,7 +96,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                deleteCategoryMutation.mutate(category.id);
+                deleteAuthorMutation.mutate(author.id);
                 setIsDeleteOpen(false);
               }}
             >
@@ -108,10 +109,8 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Editar </DialogTitle>
-            <DialogDescription>
-              Edita los datos de la categoría.
-            </DialogDescription>
+            <DialogTitle>Editar</DialogTitle>
+            <DialogDescription>Edita los datos del autor.</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -125,7 +124,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
                   <FormItem>
                     <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Categoría nueva" {...field} />
+                      <Input placeholder="Autor nuevo" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

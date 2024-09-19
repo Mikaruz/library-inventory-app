@@ -26,10 +26,10 @@ export const create = async <T, U>(
 
 export const update = async <T, U>(
   endpoint: string,
-  id: string,
-  body: U,
+  item: U & { id: string },
 ): Promise<T | undefined> => {
   try {
+    const { id, ...body } = item;
     const { data } = await axiosInstance.patch(`/${endpoint}/${id}`, body);
     return data;
   } catch (error) {

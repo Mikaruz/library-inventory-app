@@ -9,8 +9,8 @@ export const getAuthor = (authorId: string) =>
 export const createAuthor = (author: AuthorCreate) =>
   create<void, AuthorCreate>("author", author);
 
-export const updateAuthor = (authorId: string, author: AuthorUpdate) =>
-  update<void, AuthorUpdate>("author", authorId, author);
+export const updateAuthor = (author: AuthorUpdate) =>
+  update<void, AuthorUpdate>("author", author);
 
 export const deleteAuthor = (authorId: string) =>
   remove<void>("author", authorId);

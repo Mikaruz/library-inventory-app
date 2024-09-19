@@ -25,33 +25,25 @@ import { LoadingSpiner } from "../components/LoadingSpiner";
 import { DataTable } from "../components/table/DataTable";
 import { useQueryAuthors } from "../hooks/author/useAuthors";
 import { authorColumns } from "../components/table/AuthorColumn";
+import { authorCreateSchema } from "../schemas";
+import { useCreateAuthorMutation } from "../hooks/author";
 
 export const AuthorsPage = () => {
   const [open, setOpen] = useState(false);
 
   const { isLoading, authors } = useQueryAuthors();
 
-  const formSchema = z.object({
-    name: z
-      .string({
-        required_error: "Name is required",
-      })
-      .min(2, {
-        message: "Name must be at least 2 characters",
-      })
-      .max(25, {
-        message: "Name must be at most 20 characters",
-      }),
-  });
+  const authorCreateMutation = useCreateAuthorMutation();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof authorCreateSchema>>({
+    resolver: zodResolver(authorCreateSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof authorCreateSchema>) {
+    authorCreateMutation.mutate(values);
     setOpen(false);
   }
 

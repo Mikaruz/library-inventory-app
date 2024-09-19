@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { CategoryActions } from "../actions/CategoryActions";
 import { Author } from "@/dashboard/interfaces/author";
+import { AuthorActions } from "../actions/AuthorActions";
 
 export const authorColumns: ColumnDef<Author>[] = [
   {
@@ -11,8 +11,8 @@ export const authorColumns: ColumnDef<Author>[] = [
     accessorKey: "books",
     header: "Cantidad de libros",
   },
-  /*   {
+  {
     id: "actions",
-    cell: ({ row }) => <CategoryActions category={row.original} />,
-  }, */
+    cell: ({ row }) => <AuthorActions author={row.original} />,
+  },
 ];
