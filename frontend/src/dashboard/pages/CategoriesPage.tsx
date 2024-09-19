@@ -22,16 +22,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { columns } from "../components/table/CategoryColumn";
+import { categoryColumns } from "../components/table/CategoryColumn";
 import { DataTable } from "../components/table/DataTable";
 import { useQueryCategories } from "../hooks/category/useCategories";
 import { categoryCreateSchema } from "../schemas";
-import { SyncLoader } from "react-spinners";
+import { LoadingSpiner } from "../components/LoadingSpiner";
 
 export const CategoriesPage = () => {
   const [open, setOpen] = useState(false);
 
   const { isLoading, categories } = useQueryCategories();
+
   const categoryCreateMutation = useCreateCategoryMutation();
 
   const form = useForm<z.infer<typeof categoryCreateSchema>>({
@@ -47,7 +48,7 @@ export const CategoriesPage = () => {
   }
 
   return (
-    <main className="h-full w-full p-4 xl:ml-64 xl:w-[calc(100%-256px)] xl:px-7">
+    <main className="h-full w-full flex-1 p-4 xl:ml-64 xl:w-[calc(100%-256px)] xl:px-7">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="flex w-max items-center rounded-md bg-gray-800 px-4 py-2 text-gray-200">
@@ -85,13 +86,10 @@ export const CategoriesPage = () => {
       </Dialog>
 
       {isLoading ? (
-        <div className="flex h-96 flex-col items-center justify-center gap-5">
-          <SyncLoader size={20} color="#272E3F" speedMultiplier={0.5} />
-          <span className="text-lg font-semibold">Cargando...</span>
-        </div>
+        <LoadingSpiner />
       ) : (
         <div className="py-4">
-          <DataTable columns={columns} data={categories} />
+          <DataTable columns={categoryColumns} data={categories} />
         </div>
       )}
     </main>

@@ -21,9 +21,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { LoadingSpiner } from "../components/LoadingSpiner";
+import { DataTable } from "../components/table/DataTable";
+import { useQueryAuthors } from "../hooks/author/useAuthors";
+import { authorColumns } from "../components/table/AuthorColumn";
 
 export const AuthorsPage = () => {
   const [open, setOpen] = useState(false);
+
+  const { isLoading, authors } = useQueryAuthors();
 
   const formSchema = z.object({
     name: z
@@ -86,6 +92,14 @@ export const AuthorsPage = () => {
           </Form>
         </DialogContent>
       </Dialog>
+
+      {isLoading ? (
+        <LoadingSpiner />
+      ) : (
+        <div className="py-4">
+          <DataTable columns={authorColumns} data={authors} />
+        </div>
+      )}
     </main>
   );
 };

@@ -4,6 +4,8 @@ import { badRequestResponse } from "../utils/error.handle";
 
 export const validateSchema = (schema: any) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+
     try {
       schema.parse(req.body);
       next();

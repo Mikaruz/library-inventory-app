@@ -22,6 +22,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -157,6 +158,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem onClick={handleCopyId}>Copiar ID</DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
               setIsEditOpen(true);

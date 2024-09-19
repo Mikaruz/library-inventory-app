@@ -2,11 +2,32 @@ import { Author, Prisma } from "@prisma/client";
 import { prisma } from "../config/prisma";
 
 export const getAuthorsToPrisma = async () => {
-  return await prisma.author.findMany({
+  const authors = await prisma.author.findMany({
+    select: {
+      id: true,
+      name: true,
+      _count: {
+        select: {
+          books: true,
+        },
+      },
+    },
     orderBy: {
       name: "asc",
     },
   });
+
+  /*   return await prisma.author.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+ */
+  return authors.map((author) => ({
+    id: author.id,
+    name: author.name,
+    books: author._count.books,
+  }));
 };
 
 export const getAuthorToPrisma = async (id: string) => {

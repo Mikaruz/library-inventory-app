@@ -15,7 +15,7 @@ export const DashboardRoutes = () => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Toaster />
       <Header currentRoute={location.pathname} />
       <SideBar />
