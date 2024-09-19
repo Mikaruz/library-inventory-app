@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const readerSchema = z
+const readerCreateSchema = z
   .object({
     name: z
       .string({
@@ -49,3 +49,7 @@ export const readerSchema = z
   .strict({
     message: "No additional properties allowed",
   });
+
+const readerUpdateSchema = readerCreateSchema.partial();
+
+export { readerCreateSchema, readerUpdateSchema };

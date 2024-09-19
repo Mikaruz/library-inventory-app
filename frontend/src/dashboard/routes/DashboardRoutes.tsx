@@ -4,7 +4,7 @@ import { Header } from "../layouts/Header";
 import { SideBar } from "../layouts/SideBar";
 import {
   AuthorsPage,
-  Book,
+  BooksPage,
   CategoriesPage,
   Home,
   Loan,
@@ -22,7 +22,7 @@ export const DashboardRoutes = () => {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/loans" element={<Loan />} />
-        <Route path="/books" element={<Book />} />
+        <Route path="/books" element={<BooksPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/authors" element={<AuthorsPage />} />
         <Route path="/readers" element={<Reader />} />

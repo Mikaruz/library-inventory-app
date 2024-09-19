@@ -1,15 +1,15 @@
 import { Prisma, Reader } from "@prisma/client";
 import { prisma } from "../config/prisma";
 
-export const getReadersFromPrisma = async () => {
-  return await prisma.category.findMany({
+export const getReadersToPrisma = async () => {
+  return await prisma.reader.findMany({
     orderBy: {
       name: "asc",
     },
   });
 };
 
-export const getReaderFromPrisma = async (id: string) => {
+export const getReaderToPrisma = async (id: string) => {
   const reader = await prisma.reader.findUnique({
     where: {
       id: id,
@@ -29,4 +29,23 @@ export const postReaderToPrisma = async (reader: Reader) => {
 
     return readerCreated;
   } catch (error) {}
+};
+
+export const updateReaderToPrisma = async (id: string, reader: Reader) => {
+  try {
+    return await prisma.reader.update({
+      where: {
+        id,
+      },
+      data: reader,
+    });
+  } catch (error) {}
+};
+
+export const deleteReaderToPrisma = async (id: string) => {
+  return await prisma.reader.delete({
+    where: {
+      id,
+    },
+  });
 };

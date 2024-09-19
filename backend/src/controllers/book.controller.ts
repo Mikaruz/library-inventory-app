@@ -8,7 +8,7 @@ import {
   updateBookToPrisma,
 } from "../services/book.service";
 
-export const getBooks = async (req: Request, res: Response) => {
+export const getBooks = async (res: Response) => {
   try {
     const response = await getBooksToPrisma();
     res.status(200).send(response);
