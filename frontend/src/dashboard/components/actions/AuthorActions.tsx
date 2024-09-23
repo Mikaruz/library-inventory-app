@@ -124,7 +124,11 @@ export const AuthorActions: React.FC<{ author: Author }> = ({ author }) => {
                   <FormItem>
                     <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Autor nuevo" {...field} />
+                      <Input
+                        placeholder="Autor nuevo"
+                        {...field}
+                        value={author.name}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

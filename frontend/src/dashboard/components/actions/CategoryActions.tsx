@@ -125,7 +125,11 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
                   <FormItem>
                     <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Categoría nueva" {...field} />
+                      <Input
+                        placeholder="Categoría nueva"
+                        {...field}
+                        value={category.name}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

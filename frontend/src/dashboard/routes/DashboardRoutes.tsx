@@ -7,8 +7,8 @@ import {
   BooksPage,
   CategoriesPage,
   Home,
-  Loan,
-  Reader,
+  LoansPage,
+  ReadersPage,
 } from "../pages";
 
 export const DashboardRoutes = () => {
@@ -21,11 +21,11 @@ export const DashboardRoutes = () => {
       <SideBar />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/loans" element={<Loan />} />
+        <Route path="/loans" element={<LoansPage />} />
         <Route path="/books" element={<BooksPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/authors" element={<AuthorsPage />} />
-        <Route path="/readers" element={<Reader />} />
+        <Route path="/readers" element={<ReadersPage />} />
       </Routes>
     </div>
   );
