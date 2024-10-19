@@ -1,16 +1,16 @@
 import { Reader, ReaderCreate } from "../interfaces/reader";
 import { create, getAll, getOne, remove, update } from "./dashboardApi";
 
-export const getAuthors = () => getAll<Reader>("reader");
+export const getReaders = () => getAll<Reader>("reader");
 
-export const getAuthor = (readerId: string) =>
+export const getReader = (readerId: string) =>
   getOne<Reader>("reader", readerId);
 
-export const createAuthor = (reader: ReaderCreate) =>
+export const createReader = (reader: ReaderCreate) =>
   create<void, ReaderCreate>("reader", reader);
 
-export const updateAuthor = (reader: Reader) =>
+export const updateReader = (reader: Reader) =>
   update<void, Reader>("reader", reader);
 
-export const deleteAuthor = (readerId: string) =>
+export const deleteReader = (readerId: string) =>
   remove<void>("reader", readerId);

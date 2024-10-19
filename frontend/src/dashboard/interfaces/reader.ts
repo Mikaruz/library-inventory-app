@@ -7,7 +7,6 @@ export interface Reader {
   phone: string;
   address: string;
   ocupation: string;
-  avatar: string;
 }
 
 export type ReaderCreate = Omit<Reader, "id">;

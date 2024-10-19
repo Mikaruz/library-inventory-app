@@ -22,9 +22,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { readerCreateSchema } from "../schemas";
+import { useQueryReaders } from "../hooks/reader/useReaders";
+import { LoadingSpiner } from "../components/LoadingSpiner";
+import { DataTable } from "../components/table/DataTable";
+import { readerColumns } from "../components/table/ReaderColumn";
 
 export const ReadersPage = () => {
   const [open, setOpen] = useState(false);
+  const { isLoading, readers } = useQueryReaders();
 
   const form = useForm<z.infer<typeof readerCreateSchema>>({
     resolver: zodResolver(readerCreateSchema),
@@ -161,7 +166,13 @@ export const ReadersPage = () => {
           </Form>
         </DialogContent>
       </Dialog>
-      Reader
+      {isLoading ? (
+        <LoadingSpiner />
+      ) : (
+        <div className="py-4">
+          <DataTable columns={readerColumns} data={readers} />
+        </div>
+      )}
     </main>
   );
 };
