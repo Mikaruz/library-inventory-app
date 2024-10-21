@@ -28,7 +28,9 @@ export const postReaderToPrisma = async (reader: Reader) => {
     });
 
     return readerCreated;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateReaderToPrisma = async (id: string, reader: Reader) => {

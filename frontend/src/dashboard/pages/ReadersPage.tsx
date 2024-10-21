@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -13,23 +21,37 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { readerCreateSchema } from "../schemas";
-import { useQueryReaders } from "../hooks/reader/useReaders";
 import { LoadingSpiner } from "../components/LoadingSpiner";
 import { DataTable } from "../components/table/DataTable";
 import { readerColumns } from "../components/table/ReaderColumn";
+import { useCreateReaderMutation } from "../hooks/reader/useCreateReaderMutations";
+import { useQueryReaders } from "../hooks/reader/useReaders";
+import { readerCreateSchema } from "../schemas";
 
 export const ReadersPage = () => {
   const [open, setOpen] = useState(false);
   const { isLoading, readers } = useQueryReaders();
+  const readerCreateMutation = useCreateReaderMutation();
+
+  const ocupations = [
+    { label: "Estudiante", value: "STUDENT" },
+    { label: "Profesor", value: "TEACHER" },
+  ] as const;
 
   const form = useForm<z.infer<typeof readerCreateSchema>>({
     resolver: zodResolver(readerCreateSchema),
@@ -40,12 +62,11 @@ export const ReadersPage = () => {
       email: "",
       phone: "",
       address: "",
-      ocupation: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof readerCreateSchema>) {
-    console.log(values);
+    readerCreateMutation.mutate(values);
     setOpen(false);
   }
 
@@ -61,7 +82,7 @@ export const ReadersPage = () => {
           <DialogHeader>
             <DialogTitle>Crear lector</DialogTitle>
             <DialogDescription>
-              Crea un lector para organizar los préstamos.
+              Complete los campos para crear un nuevo lector.
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
@@ -71,9 +92,8 @@ export const ReadersPage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nombre del lector" {...field} />
+                      <Input placeholder="Nombre" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,9 +104,8 @@ export const ReadersPage = () => {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Apellido</FormLabel>
                     <FormControl>
-                      <Input placeholder="Apellido del lector" {...field} />
+                      <Input placeholder="Apellido" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -97,9 +116,8 @@ export const ReadersPage = () => {
                 name="dni"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>DNI</FormLabel>
                     <FormControl>
-                      <Input placeholder="DNI del lector" {...field} />
+                      <Input placeholder="DNI" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,9 +128,8 @@ export const ReadersPage = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email del lector" {...field} />
+                      <Input placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -124,22 +141,8 @@ export const ReadersPage = () => {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Teléfono</FormLabel>
                     <FormControl>
-                      <Input placeholder="Teléfono del lector" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Dirección</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Dirección del lector" {...field} />
+                      <Input placeholder="Teléfono" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -149,10 +152,68 @@ export const ReadersPage = () => {
                 control={form.control}
                 name="ocupation"
                 render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "justify-between",
+                              !field.value && "text-muted-foreground",
+                            )}
+                          >
+                            {field.value
+                              ? ocupations.find(
+                                  (ocupation) =>
+                                    ocupation.value === field.value,
+                                )?.label
+                              : "Ocupación"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[300px] p-0" align="start">
+                        <Command>
+                          <CommandList>
+                            <CommandGroup>
+                              {ocupations.map((ocupation) => (
+                                <CommandItem
+                                  value={ocupation.label}
+                                  key={ocupation.value}
+                                  onSelect={() => {
+                                    form.setValue("ocupation", ocupation.value);
+                                    console.log(ocupation.value);
+                                  }}
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 h-4 w-4",
+                                      ocupation.value === field.value
+                                        ? "opacity-100"
+                                        : "opacity-0",
+                                    )}
+                                  />
+                                  {ocupation.label}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ocupación</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ocupación del lector" {...field} />
+                      <Input placeholder="Dirección" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

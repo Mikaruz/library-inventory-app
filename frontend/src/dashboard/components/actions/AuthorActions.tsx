@@ -59,7 +59,7 @@ export const AuthorActions: React.FC<{ author: Author }> = ({ author }) => {
     resolver: zodResolver(authorUpdateSchema),
     defaultValues: {
       id: author.id,
-      name: "",
+      name: author.name,
     },
   });
 
@@ -124,11 +124,7 @@ export const AuthorActions: React.FC<{ author: Author }> = ({ author }) => {
                   <FormItem>
                     <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Autor nuevo"
-                        {...field}
-                        value={author.name}
-                      />
+                      <Input {...field} placeholder="Autor" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

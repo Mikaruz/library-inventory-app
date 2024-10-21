@@ -4,10 +4,10 @@ export const readerCreateSchema = z
   .object({
     name: z
       .string({
-        required_error: "Name is required",
+        message: "El nombre es requerido",
       })
       .min(2, {
-        message: "Name must be at least 2 characters",
+        message: "El nombre debe tener al menos 2 caracteres",
       })
       .max(10, {
         message: "Name must be at most 10 characters",
@@ -34,17 +34,23 @@ export const readerCreateSchema = z
       .email({
         message: "Invalid email format",
       }),
-    phone: z.string({
-      required_error: "Phone is required",
-    }),
-    address: z.string({
-      required_error: "Address is required",
-    }),
-    ocupation: z
+    phone: z
       .string({
-        required_error: "Ocupation is required",
+        required_error: "El teléfono es requerido",
       })
-      .optional(),
+      .length(9, {
+        message: "El teléfono debe tener 9 caracteres",
+      }),
+    address: z
+      .string({
+        required_error: "Address is required",
+      })
+      .length(10, {
+        message: "Address must be at least 10 characters",
+      }),
+    ocupation: z.string({
+      required_error: "Please select a ocupation.",
+    }),
   })
   .strict({
     message: "No additional properties allowed",

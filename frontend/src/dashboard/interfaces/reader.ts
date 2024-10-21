@@ -1,7 +1,7 @@
 export interface Reader {
   id: string;
   name: string;
-  lastname: string;
+  lastName: string;
   dni: string;
   email: string;
   phone: string;

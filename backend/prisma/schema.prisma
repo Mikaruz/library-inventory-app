@@ -20,7 +20,7 @@ model User {
 model Reader {
   id        String    @id @default(uuid())
   name      String
-  lastname  String
+  lastName  String
   dni       String    @unique
   email     String    @unique
   phone     String    @unique

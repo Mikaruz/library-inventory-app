@@ -13,7 +13,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: FRONTEND_URL,
+    origin: [FRONTEND_URL, "http://192.168.1.33:5173"],
   })
 );
 app.use(morgan("dev"));

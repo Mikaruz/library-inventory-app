@@ -8,7 +8,7 @@ export const readerColumns: ColumnDef<Reader>[] = [
     header: "Nombre",
   },
   {
-    accessorKey: "lastname",
+    accessorKey: "lastName",
     header: "Apellido",
   },
   {
