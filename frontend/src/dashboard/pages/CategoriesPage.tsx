@@ -13,7 +13,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -22,24 +21,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { LoadingSpiner } from "../components/LoadingSpiner";
 import { categoryColumns } from "../components/table/CategoryColumn";
 import { DataTable } from "../components/table/DataTable";
 import { useQueryCategories } from "../hooks/category/useCategories";
 import { categoryCreateSchema } from "../schemas";
-import { LoadingSpiner } from "../components/LoadingSpiner";
 
 export const CategoriesPage = () => {
   const [open, setOpen] = useState(false);
 
   const { isLoading, categories } = useQueryCategories();
-
   const categoryCreateMutation = useCreateCategoryMutation();
 
   const form = useForm<z.infer<typeof categoryCreateSchema>>({
     resolver: zodResolver(categoryCreateSchema),
-    defaultValues: {
-      name: "",
-    },
   });
 
   function onSubmit(values: z.infer<typeof categoryCreateSchema>) {
@@ -69,9 +64,8 @@ export const CategoriesPage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input placeholder="Categoría nueva" {...field} />
+                      <Input placeholder="Nombre" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

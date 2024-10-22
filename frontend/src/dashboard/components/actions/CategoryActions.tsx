@@ -22,7 +22,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -30,7 +29,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -42,7 +40,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
 export const CategoryActions: React.FC<{ category: Category }> = ({
@@ -58,7 +55,7 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
     resolver: zodResolver(categoryUpdateSchema),
     defaultValues: {
       id: category.id,
-      name: "",
+      name: category.name,
     },
   });
 
@@ -66,13 +63,6 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
     updateCategoryMutation.mutate(values);
     setIsEditOpen(false);
   }
-
-  const handleCopyId = () => {
-    navigator.clipboard.writeText(category.id);
-    toast("ID de la categoría copiado en el portapapeles", {
-      position: "top-right",
-    });
-  };
 
   return (
     <>
@@ -123,13 +113,8 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Categoría nueva"
-                        {...field}
-                        value={category.name}
-                      />
+                      <Input placeholder="Nombre" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -152,8 +137,6 @@ export const CategoryActions: React.FC<{ category: Category }> = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <DropdownMenuItem onClick={handleCopyId}>Copiar ID</DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
               setIsEditOpen(true);
